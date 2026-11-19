@@ -37,6 +37,7 @@ const statusLabel: Record<UploadItem['status'], string> = {
       >
         <div class="h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-cream text-olive">
           <img v-if="item.previewUrl" :src="item.previewUrl" alt="" class="h-full w-full object-cover" />
+          <span v-else-if="item.rejected" class="flex h-full w-full items-center justify-center text-xl text-danger">!</span>
           <MediaIcon v-else :kind="item.kind" class="m-3 h-6 w-6" />
         </div>
         <div class="min-w-0 flex-1">

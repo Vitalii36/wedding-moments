@@ -11,7 +11,11 @@
     "typecheck": "vue-tsc --noEmit",
     "test": "vitest run",
     "rls-test": "node --env-file=.env scripts/rls-test.mjs",
-    "qr-card": "node scripts/qr-card.mjs"
+    "qr-card": "node scripts/qr-card.mjs",
+    "db:start": "supabase start -x studio,imgproxy,mailpit,edge-runtime,logflare,vector,supavisor,realtime,postgres-meta",
+    "db:stop": "supabase stop",
+    "dev:local": "vite --mode local-supabase",
+    "e2e:local": "node --env-file=.env.local-supabase scripts/rls-test.mjs && node --env-file=.env.local-supabase scripts/e2e-tus.mjs"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "5.3.0",
@@ -25,6 +29,7 @@
     "@vitejs/plugin-vue": "6.0.11",
     "happy-dom": "21.0.4",
     "qrcode": "1.5.4",
+    "supabase": "3.2.0",
     "tailwindcss": "4.3.5",
     "typescript": "5.9.3",
     "vite": "8.3.8",

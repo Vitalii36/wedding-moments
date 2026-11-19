@@ -32,3 +32,12 @@ open docs/qr-card.html        # print
 
 ## 6. After the wedding
 See `docs/after-wedding.md`.
+
+## Local full stack (Docker)
+```bash
+npm run db:start              # local Supabase with migrations applied, anon sign-ins on
+# create .env.local-supabase from the keys printed by db:start (see .env.example names)
+npm run e2e:local             # RLS isolation + resumable upload test
+npm run dev:local             # app against local Supabase
+npm run db:stop
+```

@@ -45,7 +45,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="fixed inset-0 z-50 flex flex-col bg-ink/95 text-paper" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 z-50 flex flex-col bg-ink text-paper" role="dialog" aria-modal="true">
     <div class="flex items-center justify-between px-4 pb-2 pt-[max(0.75rem,env(safe-area-inset-top))]">
       <button type="button" class="caps py-2 text-paper/80" @click="confirmRemove">{{ config.copy.remove }}</button>
       <button type="button" class="caps py-2 text-paper" @click="emit('close')">{{ config.copy.close }} ✕</button>

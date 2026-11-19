@@ -6,3 +6,4 @@ dist/
 export/
 .DS_Store
 *.log
+docs/qr-card.html
