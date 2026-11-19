@@ -42,13 +42,12 @@
   `createSignedUrl(path, 3600)` for the original. Videos use `<video controls playsinline>`.
 
 ## R7. Styling & fonts
-- **Decision**: Tailwind 4 via `@tailwindcss/vite`, theme tokens in `@theme`; fonts
-  `@fontsource/cormorant-garamond` (400, 500, 400-italic) and `@fontsource/pinyon-script`,
-  both cyrillic-capable? — Cormorant Garamond has Cyrillic; Pinyon Script is Latin only, so it is
-  used only for the Latin-free "та"? No: "та" is Cyrillic. **Decision**: use Cormorant Garamond
-  italic for the "та" accent (Cyrillic-safe) and keep Pinyon Script only as an optional Latin
-  decorative glyph — dropped to save bytes. Olive branches drawn as inline SVG until the
-  invitation artwork is supplied (`src/assets/olive.svg` is the swap point).
+- **Decision**: Tailwind 4 via `@tailwindcss/vite`, theme tokens in `@theme`; font
+  `@fontsource/cormorant-garamond` (400, 500, 400-italic; has Cyrillic). The "та" accent uses
+  Cormorant Garamond italic.
+- **Rejected**: Pinyon Script (PLAN §5) — it has no Cyrillic glyphs, and "та" is Cyrillic.
+- Olive branches are an inline SVG placeholder until the invitation artwork is supplied
+  (`src/assets/olive.svg` is the swap point).
 
 ## R8. Deployment
 - **Decision**: GitHub Actions → `actions/deploy-pages`; Vite `base` from `VITE_BASE` (default
