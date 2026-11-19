@@ -5,7 +5,7 @@
 """Download every original from Supabase into export/<guest>/ (contracts/export-cli.md).
 
 Usage:  uv run scripts/export.py [--out export] [--dry-run]
-Needs SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env (never commit it).
+Needs SUPABASE_URL and SUPABASE_SECRET_KEY (or legacy SUPABASE_SERVICE_ROLE_KEY) in .env (never commit it).
 """
 
 from __future__ import annotations
@@ -78,12 +78,14 @@ def main() -> int:
 
     load_dotenv()
     url = os.environ.get("SUPABASE_URL")
-    key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+    key = os.environ.get("SUPABASE_SECRET_KEY") or os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
     if not url or not key:
-        print("SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set (see .env.example)", file=sys.stderr)
+        print("SUPABASE_URL and SUPABASE_SECRET_KEY (sb_secret_...) must be set in .env", file=sys.stderr)
         return 2
 
-    headers = {"apikey": key, "Authorization": f"Bearer {key}"}
+    headers = {"apikey": key}
+    if key.startswith("eyJ"):  # legacy JWT service_role key also needs Bearer
+        headers["Authorization"] = f"Bearer {key}"
     with httpx.Client(base_url=url.rstrip("/"), headers=headers, timeout=httpx.Timeout(30, read=600)) as client:
         rows = fetch_rows(client)
         downloaded = skipped = failed = 0
