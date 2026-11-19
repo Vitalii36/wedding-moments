@@ -88,3 +88,10 @@ before the event), US3/US5, polish. Validate with device checklist before printi
 - Browser (Chrome, 400 px wide): anon sign-in, name persisted, photo + video uploaded with thumbnails,
   PDF rejected, gallery after reload, viewer, delete removes row + original + thumbnail.
 - Still manual: real devices (iPhone/Android/HEIC/portrait), Wi-Fi drop on a phone, 10-person load test.
+
+## Production setup (2026-11-19)
+
+- Repo made public; GitHub Pages (Actions) live at https://vitalii36.github.io/wedding-moments/.
+- Supabase project `yczurrybfeszqxscbcmp` (free plan): migrations applied, anonymous sign-ins ON,
+  bucket limit 50 MB (free-plan cap). RLS test 17/17 and TUS resume test pass against production;
+  test data removed.

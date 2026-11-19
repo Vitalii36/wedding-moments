@@ -1,5 +1,12 @@
 # Runbook
 
+## Current state
+
+Free plan, bucket limit **50 MB per file** (`0002_storage.sql`, `src/config.ts`). Phone videos
+over ~30–60 s of 1080p will be rejected. To lift it: upgrade to Pro, raise the global limit, then
+`update storage.buckets set file_size_limit = 2147483648 where id = 'media';` and set
+`maxFileBytes` in `src/config.ts` to 2 GB, push.
+
 ## Before the event (T-2 weeks)
 
 - [ ] Supabase project on **Pro** (free plan caps files at 50 MB). Check current pricing,

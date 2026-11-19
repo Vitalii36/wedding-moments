@@ -13,7 +13,8 @@ const owner = session.user.id
 const id = crypto.randomUUID()
 const path = `${owner}/${id}.mp4`
 const data = randomBytes(20 * 1024 * 1024)
-const endpoint = `${url}/storage/v1/upload/resumable`
+const m = /^https:\/\/([a-z0-9]+)\.supabase\.co/.exec(url)
+const endpoint = m ? `https://${m[1]}.storage.supabase.co/storage/v1/upload/resumable` : `${url}/storage/v1/upload/resumable`
 
 function start(resumeUrl, abortAt) {
   return new Promise((resolve, reject) => {
@@ -48,4 +49,8 @@ if (dl.error) throw dl.error
 const got = Buffer.from(await dl.data.arrayBuffer())
 const same = createHash('sha256').update(got).digest('hex') === createHash('sha256').update(data).digest('hex')
 console.log('downloaded', got.length, 'bytes; byte-identical:', same)
+// clean up so test data never reaches the export
+await sb.storage.from('media').remove([path])
+await sb.from('uploads').delete().eq('id', id)
+console.log('cleaned up test object + row')
 process.exit(same ? 0 : 1)
