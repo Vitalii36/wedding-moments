@@ -3,7 +3,8 @@
 -- (Storage → Settings). Free plan caps at 50 MB — use Pro around the event (research R3).
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values ('media', 'media', false, 2147483648, array['image/*', 'video/*'])
+values ('media', 'media', false, 52428800, -- 50 MB (free plan). Pro: raise to 2147483648
+        array['image/*', 'video/*'])
 on conflict (id) do update
   set public = excluded.public,
       file_size_limit = excluded.file_size_limit,

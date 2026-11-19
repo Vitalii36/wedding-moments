@@ -23,7 +23,7 @@ export const config = {
     offline: 'Не вдалося підключитися. Перевірте інтернет і оновіть сторінку.',
   },
   /** Must match bucket limits in supabase/migrations/0002_storage.sql */
-  maxFileBytes: 2 * 1024 * 1024 * 1024,
+  maxFileBytes: 50 * 1024 * 1024, // free plan; set 2 GB after upgrading to Pro
   parallelUploads: 2,
   thumbMaxSide: 480,
   signedUrlTtlSec: 3600,
