@@ -1,0 +1,62 @@
+@import 'tailwindcss';
+
+/* Palette from PLAN §5 — tune with an eyedropper from the invitation */
+@theme {
+  --color-cream: #f3ebdd;
+  --color-paper: #faf6ee;
+  --color-ink: #5a4636;
+  --color-line: #c9b8a3;
+  --color-olive: #7b7f5c;
+  --color-danger: #9a4a3c;
+  --font-serif: 'Cormorant Garamond', ui-serif, Georgia, serif;
+}
+
+html,
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+.caps {
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.78rem;
+}
+
+.frame {
+  position: fixed;
+  inset: 10px;
+  border: 1px solid var(--color-line);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.95rem 1.75rem;
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  transition: opacity 0.15s ease;
+}
+.btn:active {
+  opacity: 0.8;
+}
+.btn-solid {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.btn-ghost {
+  border: 1px solid var(--color-line);
+  color: var(--color-ink);
+  background: transparent;
+}

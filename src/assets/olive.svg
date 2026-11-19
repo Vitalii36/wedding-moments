@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Placeholder olive branch. Replace with the cleaned-up artwork from the invitation. -->
+  <path d="M8 192 C 50 150, 95 110, 192 14" stroke="#8a7a5c" stroke-width="2" stroke-linecap="round"/>
+  <g fill="#7b7f5c" fill-opacity="0.78">
+    <ellipse cx="40" cy="160" rx="16" ry="5" transform="rotate(-62 40 160)"/>
+    <ellipse cx="58" cy="152" rx="16" ry="5" transform="rotate(18 58 152)"/>
+    <ellipse cx="66" cy="128" rx="17" ry="5.5" transform="rotate(-58 66 128)"/>
+    <ellipse cx="86" cy="122" rx="17" ry="5.5" transform="rotate(14 86 122)"/>
+    <ellipse cx="96" cy="98" rx="18" ry="5.5" transform="rotate(-54 96 98)"/>
+    <ellipse cx="116" cy="92" rx="18" ry="5.5" transform="rotate(10 116 92)"/>
+    <ellipse cx="128" cy="68" rx="17" ry="5" transform="rotate(-50 128 68)"/>
+    <ellipse cx="148" cy="62" rx="17" ry="5" transform="rotate(6 148 62)"/>
+    <ellipse cx="160" cy="40" rx="15" ry="4.5" transform="rotate(-46 160 40)"/>
+    <ellipse cx="176" cy="34" rx="14" ry="4.5" transform="rotate(2 176 34)"/>
+  </g>
+  <g fill="#9aa07a" fill-opacity="0.45">
+    <ellipse cx="50" cy="140" rx="12" ry="4" transform="rotate(-20 50 140)"/>
+    <ellipse cx="108" cy="80" rx="12" ry="4" transform="rotate(-20 108 80)"/>
+  </g>
+  <g fill="#4f5a3a">
+    <ellipse cx="76" cy="140" rx="5" ry="6.5" transform="rotate(-30 76 140)"/>
+    <ellipse cx="138" cy="80" rx="5" ry="6.5" transform="rotate(-30 138 80)"/>
+  </g>
+</svg>
