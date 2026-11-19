@@ -1,50 +1,85 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+- Version change: (template) → 1.0.0
+- Principles defined: I. Simplest Thing That Works; II. No Custom Backend — Security Lives in RLS;
+  III. Originals Are Sacred; IV. Mobile-First, Guest-Friendly; V. Secrets & Privacy by Default;
+  VI. Single-Tenant, Config-Driven
+- Added sections: Technology Constraints; Development Workflow & Quality Gates; Governance
+- Removed sections: none
+- Templates: .specify/templates/plan-template.md ✅ (generic Constitution Check gate, no change needed)
+  .specify/templates/spec-template.md ✅  .specify/templates/tasks-template.md ✅
+- Deferred TODOs: none
+-->
+
+# wedding-moments Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Simplest Thing That Works
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+The system MUST be the simplest design that serves ~27 guests with phones on one day.
+No feature, abstraction, or dependency is added "for later" (YAGNI). Multi-tenancy,
+payments, admin panels, comments, likes, server-side transcoding and face recognition
+are out of scope for v1. Any added complexity MUST be justified in the plan's
+Complexity Tracking table.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. No Custom Backend — Security Lives in RLS
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+The browser talks directly to Supabase (Auth, Storage, Postgres). There is no
+application server. All access control MUST be expressed as Row Level Security and
+Storage policies, versioned as SQL migrations in `supabase/migrations/`. Because security
+rests entirely on RLS, an automated two-session RLS test (user A cannot read or delete
+user B's rows/objects; no session → nothing) MUST exist and pass before the event.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. Originals Are Sacred
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+Uploaded photos and videos MUST be stored byte-for-byte as received: no compression,
+resizing or transcoding. Thumbnails/posters are generated client-side and stored
+alongside; failure to produce a thumbnail MUST NOT block or fail the original upload.
+Uploads MUST be resumable (TUS) so large videos survive flaky venue Wi-Fi.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. Mobile-First, Guest-Friendly
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+iOS Safari and Android Chrome are the primary targets. The page MUST open without login
+and render in ≤ 3 s on 4G. UI language is Ukrainian, copy is warm and short. One failed
+file MUST never break the rest of a batch; every failure is visible on the file itself
+with a retry action.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### V. Secrets & Privacy by Default
+
+Only the Supabase URL and anon key may ship in the frontend. The service-role key lives
+only in a local, git-ignored `.env` used by `scripts/`. The storage bucket is private;
+media is viewed via short-TTL signed URLs. The site is `noindex`. No third-party CDNs at
+runtime: fonts and assets are self-hosted.
+
+### VI. Single-Tenant, Config-Driven
+
+Names, date, copy and palette come from one file, `src/config.ts`. The code is not
+generalised for resale until a real buyer exists; the config file is the only seam.
+
+## Technology Constraints
+
+- Frontend: Vue 3 + Vite + TypeScript + Tailwind CSS, single view, no router.
+- Uploads: `tus-js-client` against Supabase Storage resumable endpoint.
+- Backend: Supabase (anonymous auth, private bucket `media`, table `uploads`).
+- Hosting: static build on GitHub Pages via GitHub Actions.
+- Export: `scripts/export.py` (Python, service key from `.env`).
+
+## Development Workflow & Quality Gates
+
+- Spec-driven: constitution → spec → plan → tasks → implement (GitHub Spec Kit).
+- Every change MUST pass `npm run typecheck`, `npm run test` and `npm run build`.
+- Pure logic (queue, paths, validation, thumbnail sizing) MUST have unit tests (Vitest).
+- RLS test script MUST be run against the real project before the event.
+- Manual device checklist (iPhone Safari, Android Chrome, old device, Wi-Fi drop
+  mid-upload, HEIC, portrait video) MUST be completed before printing the QR codes.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes other practices for this repository. Amendments are made by
+editing this file with a Sync Impact Report and a semantic version bump (MAJOR: principle
+removed/redefined; MINOR: principle/section added; PATCH: wording). Plans MUST include a
+Constitution Check; violations require an entry in Complexity Tracking. `PLAN.md` holds the
+original product plan and ADRs and is the source of truth for intent.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-11-19 | **Last Amended**: 2026-11-19
